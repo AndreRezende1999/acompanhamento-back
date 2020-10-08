@@ -25,12 +25,22 @@ export const useStyles = makeStyles(theme => ({
   },
   chartButtons: {
     height: "20px",
-    background: "blue"
+    // background: "blue",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  changeChartButton: {
+
   },
   table: {
     background: "red",
     width: "100%",
     marginBottom: "35px",
     height: "100px"
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
   },
 }))
