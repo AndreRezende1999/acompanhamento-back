@@ -4,6 +4,7 @@ import {
   CssBaseline,
   Select,
   MenuItem,
+  TextField
 } from '@material-ui/core';
 import { useStyles } from './funcionamentoequipamentoStyle'
 import { ptBR } from 'date-fns/locale';
@@ -93,6 +94,33 @@ export default function ChartTable({ dataToShow, periodChart, setPeriodChart }) 
     </>
   )
 
+  const PeriodModele = ({ number, type }) => (
+    <>
+      <h2 className={classes.moduleTitle}>Período</h2>
+      <Box display="flex" justifyContent="space-around" alignItems="center">
+        {/* <TextField defaultValue={12} className={classes.inputPeriod}
+          size="small" /> */}
+
+        <p className={classes.moduleValue}>{number}</p>
+        <Select
+          defaultValue={10}
+          className={classes.selectPeriod}
+          variant="standard"
+          value={type}
+          onChange={handleChangePeriod}
+        >
+          <MenuItem value={"hour"}>horas</MenuItem>
+          <MenuItem value={"day"}>dias</MenuItem>
+          <MenuItem value={"mounth"}>meses</MenuItem>
+          <MenuItem value={"year"}> anos</MenuItem >
+          <MenuItem value={"all"}>tudo</MenuItem>
+        </Select >
+      </Box>
+
+      <hr className={classes.divider} />
+    </>
+  )
+
   const handleChangePeriod = (e) => {
     const type = e.target.value;
     setPeriodChart(prev => ({ ...prev, type }))
@@ -102,27 +130,7 @@ export default function ChartTable({ dataToShow, periodChart, setPeriodChart }) 
     <>
       <CssBaseline />
 
-      <h2 className={classes.moduleTitle}>Período</h2>
-      <Box display="flex" justifyContent="space-around">
-        {/* <TextField defaultValue={12} className={classes.inputPeriod}
-          variant="outlined" size="small" /> */}
-
-        <Select
-          defaultValue={10}
-          className={classes.selectPeriod}
-          variant="standard"
-          value={periodChart.type}
-          onChange={handleChangePeriod}
-        >
-          <MenuItem value={"hour"}>horas</MenuItem>
-          <MenuItem value={"day"}>dias</MenuItem>
-          <MenuItem value={"mounth"}>meses</MenuItem>
-          <MenuItem value={"year"}> anos</MenuItem >
-          <MenuItem value={"all"}>tudo</MenuItem>
-        </Select >
-      </Box >
-
-      <hr className={classes.divider} />
+      <PeriodModele number={periodChart.value} type={periodChart.type} />
 
       {elementsOfTable[dataToShow.type]
         .concat(elementsFixedOfTable)

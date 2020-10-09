@@ -49,11 +49,12 @@ export const useStyles = makeStyles(theme => ({
     },
   },
   selectPeriod: {
-    // width: "30%",
-    height: "2rem",
+    width: "100px",
+    marginLeft: "10px",
+    height: "32px",
   },
   inputPeriod: {
-    width: "30%",
+    width: "30px",
   },
   chartButtons: {
     height: "20px",
