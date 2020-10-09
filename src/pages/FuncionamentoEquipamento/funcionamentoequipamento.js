@@ -17,29 +17,39 @@ export default function FuncionamentoEquipamento() {
   const [equipmentData, setEquipmentData] = useState([]);
   const [equipment, setEquipment] = useState({});
   const [selectedChart, setSelectedChart] = useState("temperature");
-  const [dataToShow, setDataToShow] = useState({})
+  const [dataToShow, setDataToShow] = useState({
+    type: selectedChart,
+    period: "2",
+    max: 22,
+    min: 12,
+    lastAlert: "12",
+    worktime: "",
+    situation: "",
+  })
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // get datas of equipment
     api.get(`data/equipament/${id}`).then(response => {
-      setEquipmentData(response.data.data)
-      const data = {
-        type: "temperature"
-      }
-      setDataToShow(prev => ({ ...prev, ...data })) //first time
+      const equipment = response.data.data;
+      setEquipmentData(equipment)
     })
 
     // get equipment
     api.get(`equipment/${id}`).then(response => {
       setEquipment(response.data.equipment[0])
     })
+
     setLoading(false)
   }, [id]);
 
   useEffect(() => {
-    console.log(equipmentData)
-    console.log(equipment)
+    const data = {
+      type: "temperature",
+      situation: equipment.situation,
+      worktime: equipment.work_time
+    }
+    setDataToShow(prev => ({ ...prev, ...data })) //first time
   }, [equipment, equipmentData]);
 
   if (loading || Object.keys(dataToShow).length === 0) {
@@ -70,7 +80,7 @@ export default function FuncionamentoEquipamento() {
             <h2>Gráfico: {dataToShow.type}</h2>
           </Grid>
           <Grid item md={3} xs={12} className={classes.chartTable}>
-            <ChartTable />
+            <ChartTable dataToShow={dataToShow} />
           </Grid>
           <Grid item md={12} xs={12} className={classes.chartButtons}>
             <input type="radio" onChange={() => handleChangeChartData("temperature")}
