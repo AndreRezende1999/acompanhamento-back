@@ -11,7 +11,7 @@ import { useStyles } from './funcionamentoequipamentoStyle';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
-export default function ({ dataToShow, periodChart }) {
+export default function ({ dataToShow, equipmentData, selectedChart }) {
   const classes = useStyles();
 
   const [chartTitle, setChartTitle] = useState("");
@@ -38,8 +38,18 @@ export default function ({ dataToShow, periodChart }) {
       <CssBaseline />
 
       <h2 className={classes.title}>{chartTitle}</h2>
-      <p className={classes.subtitle}>{format(new Date(), "PPPP", { locale: ptBR })}</p>
-      <Line />
+      <p className={classes.subtitle}>
+        {format(new Date(), "PPPP", { locale: ptBR })}
+      </p>
+      <Line data={{
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [{
+          label: 'Atual',
+          borderColor: "red",
+          data: equipmentData.map(data => data[selectedChart]),
+          fill: false,
+        }]
+      }} />
     </>
   )
 }
