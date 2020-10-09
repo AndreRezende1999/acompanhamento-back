@@ -16,14 +16,9 @@ export const useStyles = makeStyles(theme => ({
     marginBottom: "35px",
   },
   chart: {
-    // height: "300px",
     background: "white",
     border: "1px solid rgba(0,0,0,.2)",
-
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
+    padding: "0 20px 10px",
   },
   chartTable: {
     // height: "300px",
@@ -88,5 +83,16 @@ export const useStyles = makeStyles(theme => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
     color: '#fff',
+  },
+  title: {
+    lineHeight: "10px",
+    fontWeight: "bold",
+    color: "rgba(0,0,0,1)",
+    fontSize: "24px",
+  },
+  subtitle: {
+    lineHeight: "0",
+    color: "rgba(0,0,0,.4)",
+    fontSize: "14px",
   },
 }))

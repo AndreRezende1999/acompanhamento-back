@@ -6,10 +6,12 @@ import {
   CircularProgress,
   Backdrop,
 } from '@material-ui/core';
+import { getTime, parseISO } from 'date-fns';
+
 import { useStyles } from './funcionamentoequipamentoStyle'
 import ChartTable from './chartTable';
 import Table from './table';
-import { getTime, parseISO } from 'date-fns';
+import Chart from './chart';
 
 export default function FuncionamentoEquipamento() {
   const classes = useStyles();
@@ -108,7 +110,7 @@ export default function FuncionamentoEquipamento() {
       <Grid container>
         <Grid container className={classes.chartContainer}>
           <Grid item md={9} xs={12} className={classes.chart}>
-            <h2>Gráfico: {dataToShow.type}</h2>
+            <Chart dataToShow={dataToShow} />
           </Grid>
           <Grid item md={3} xs={12} className={classes.chartTable}>
             <ChartTable
