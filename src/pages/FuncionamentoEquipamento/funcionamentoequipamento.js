@@ -7,6 +7,7 @@ import {
   Backdrop,
 } from '@material-ui/core';
 import { useStyles } from './funcionamentoequipamentoStyle'
+import ChartTable from './chartTable';
 
 export default function FuncionamentoEquipamento() {
   const classes = useStyles();
@@ -69,9 +70,7 @@ export default function FuncionamentoEquipamento() {
             <h2>Gráfico: {dataToShow.type}</h2>
           </Grid>
           <Grid item md={3} xs={12} className={classes.chartTable}>
-            <h2>Tabela do gráfico</h2>
-            <p>{equipment.equipment_model}</p>
-            <p>{equipment.observation}</p>
+            <ChartTable />
           </Grid>
           <Grid item md={12} xs={12} className={classes.chartButtons}>
             <input type="radio" onChange={() => handleChangeChartData("temperature")}
