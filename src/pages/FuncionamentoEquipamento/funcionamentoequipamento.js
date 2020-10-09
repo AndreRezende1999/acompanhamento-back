@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core';
 import { useStyles } from './funcionamentoequipamentoStyle'
 import ChartTable from './chartTable';
+import Table from './table';
 import { getTime, parseISO } from 'date-fns';
 
 export default function FuncionamentoEquipamento() {
@@ -125,7 +126,7 @@ export default function FuncionamentoEquipamento() {
           </Grid>
         </Grid>
         <Grid item md={12} xs={12} className={classes.table}>
-          <h2>Tabela do equipamento</h2>
+          <Table equipment={equipment} />
         </Grid>
       </Grid>
     </div>

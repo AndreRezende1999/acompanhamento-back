@@ -67,16 +67,9 @@ export const useStyles = makeStyles(theme => ({
   },
   table: {
     width: "100%",
-    marginBottom: "35px",
-    height: "100px",
 
     background: "white",
     border: "1px solid rgba(0,0,0,.2)",
-
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
   },
 
   //utilitys
@@ -85,6 +78,11 @@ export const useStyles = makeStyles(theme => ({
     height: "1px",
     backgroundColor: "rgba(0,0,0,.2)",
     border: "none"
+  },
+  center: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
   },
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
