@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core';
 import { useStyles } from './funcionamentoequipamentoStyle'
 import ChartTable from './chartTable';
+import { getTime, parseISO } from 'date-fns';
 
 export default function FuncionamentoEquipamento() {
   const classes = useStyles();
@@ -17,15 +18,22 @@ export default function FuncionamentoEquipamento() {
   const [equipmentData, setEquipmentData] = useState([]);
   const [equipment, setEquipment] = useState({});
   const [selectedChart, setSelectedChart] = useState("temperature");
+  const [periodChart, setPeriodChart] = useState({
+    type: "mounth",
+    value: 1,
+  })
   const [dataToShow, setDataToShow] = useState({
     type: selectedChart,
-    period: "2",
     tempMax: 0,
     currMax: 0,
     voltMax: 0,
-    min: 33,
-    lastAlert: "12",
-    worktime: 1234676,
+    tempMin: 0,
+    currMin: 0,
+    voltMin: 0,
+    tempLastAlert: getTime(parseISO('2020-09-16')),
+    currLastAlert: getTime(parseISO('2020-10-09')),
+    voltLastAlert: getTime(parseISO('2020-08-01')),
+    worktime: getTime(parseISO('2020-08-12')),
     situation: "",
   })
   const [loading, setLoading] = useState(true);
@@ -61,7 +69,7 @@ export default function FuncionamentoEquipamento() {
       voltMin = Math.min(...equipmentData.map(data => data.voltage))
     }
     const data = {
-      type: "temperature",
+      type: selectedChart,
       tempMax,
       tempMin,
       currMax,
@@ -69,10 +77,10 @@ export default function FuncionamentoEquipamento() {
       voltMax,
       voltMin,
       situation: equipment.situation,
-      worktime: equipment.work_time
+      // worktime: equipment.work_time
     }
     setDataToShow(prev => ({ ...prev, ...data })) //first time
-  }, [equipment, equipmentData]);
+  }, [equipment, equipmentData, selectedChart]);
 
   if (loading || Object.keys(dataToShow).length === 0) {
     return (
@@ -102,7 +110,10 @@ export default function FuncionamentoEquipamento() {
             <h2>Gráfico: {dataToShow.type}</h2>
           </Grid>
           <Grid item md={3} xs={12} className={classes.chartTable}>
-            <ChartTable dataToShow={dataToShow} />
+            <ChartTable
+              dataToShow={dataToShow}
+              periodChart={periodChart}
+              setPeriodChart={setPeriodChart} />
           </Grid>
           <Grid item md={12} xs={12} className={classes.chartButtons}>
             <input type="radio" onChange={() => handleChangeChartData("temperature")}

@@ -2,20 +2,15 @@ import React from 'react';
 import {
   Box,
   CssBaseline,
-  FormControl,
-  InputLabel,
   Select,
-  MenuItem
+  MenuItem,
 } from '@material-ui/core';
 import { useStyles } from './funcionamentoequipamentoStyle'
+import { ptBR } from 'date-fns/locale';
+import { formatDistanceToNow } from 'date-fns/esm';
 
 const elementsOfTable = {
   temperature: [
-    {
-      title: "Período",
-      value: "period",
-      unity: "meses"
-    },
     {
       title: "Máxima temperatura",
       value: "tempMax",
@@ -28,16 +23,11 @@ const elementsOfTable = {
     },
     {
       title: "Último alerta de temperatura",
-      value: "lastAlert",
-      unity: "meses"
+      value: "tempLastAlert",
+      unity: ""
     }
   ],
   current: [
-    {
-      title: "Período",
-      value: "period",
-      unity: "meses"
-    },
     {
       title: "Máxima corrente",
       value: "currMax",
@@ -50,16 +40,11 @@ const elementsOfTable = {
     },
     {
       title: "Último alerta de corrente",
-      value: "lastAlert",
-      unity: "meses"
+      value: "currLastAlert",
+      unity: ""
     }
   ],
   voltage: [
-    {
-      title: "Período",
-      value: "period",
-      unity: "meses"
-    },
     {
       title: "Máxima tensão",
       value: "voltMax",
@@ -72,8 +57,8 @@ const elementsOfTable = {
     },
     {
       title: "Último alerta de tensão",
-      value: "lastAlert",
-      unity: "meses"
+      value: "voltLastAlert",
+      unity: ""
     }
   ]
 }
@@ -82,7 +67,7 @@ const elementsFixedOfTable = [
   {
     title: "Tempo ligado",
     value: "worktime",
-    unity: "meses"
+    unity: ""
   },
   {
     title: "Situação",
@@ -92,46 +77,50 @@ const elementsFixedOfTable = [
   },
 ]
 
-export default function ChartTable({ dataToShow }) {
+export default function ChartTable({ dataToShow, periodChart, setPeriodChart }) {
   const classes = useStyles();
 
   const Module = ({ title, value, unity, last }) => (
     <>
       <h2 className={classes.moduleTitle}>{title}</h2>
-      <p className={classes.moduleValue}>{dataToShow[value]} {unity}</p>
+      <p className={classes.moduleValue}>{
+        value === "worktime" || value === "voltLastAlert" || value === "currLastAlert" || value === "tempLastAlert" ?
+          formatDistanceToNow(dataToShow[value], { locale: ptBR }) :
+          dataToShow[value]
+      } {unity}</p>
 
       {!last && <hr className={classes.divider} />}
     </>
   )
+
+  const handleChangePeriod = (e) => {
+    const type = e.target.value;
+    setPeriodChart(prev => ({ ...prev, type }))
+  }
 
   return (
     <>
       <CssBaseline />
 
       <h2 className={classes.moduleTitle}>Período</h2>
-      <Box>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-        // value={age}
-        // onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
+      <Box display="flex" justifyContent="space-around">
+        {/* <TextField defaultValue={12} className={classes.inputPeriod}
+          variant="outlined" size="small" /> */}
 
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-        // value={age}
-        // onChange={handleChange}
+          defaultValue={10}
+          className={classes.selectPeriod}
+          variant="standard"
+          value={periodChart.type}
+          onChange={handleChangePeriod}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </Box>
+          <MenuItem value={"hour"}>horas</MenuItem>
+          <MenuItem value={"day"}>dias</MenuItem>
+          <MenuItem value={"mounth"}>meses</MenuItem>
+          <MenuItem value={"year"}> anos</MenuItem >
+          <MenuItem value={"all"}>tudo</MenuItem>
+        </Select >
+      </Box >
 
       <hr className={classes.divider} />
 

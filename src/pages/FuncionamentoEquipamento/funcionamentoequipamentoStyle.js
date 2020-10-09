@@ -48,10 +48,12 @@ export const useStyles = makeStyles(theme => ({
       fontSize: "16px",
     },
   },
-  select: {
-    padding: "10px",
-    border: "none",
-    outline: "none"
+  selectPeriod: {
+    // width: "30%",
+    height: "2rem",
+  },
+  inputPeriod: {
+    width: "30%",
   },
   chartButtons: {
     height: "20px",
@@ -61,13 +63,20 @@ export const useStyles = makeStyles(theme => ({
     alignItems: "center"
   },
   changeChartButton: {
-
+    cursor: "pointer"
   },
   table: {
-    background: "red",
     width: "100%",
     marginBottom: "35px",
-    height: "100px"
+    height: "100px",
+
+    background: "white",
+    border: "1px solid rgba(0,0,0,.2)",
+
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   //utilitys
