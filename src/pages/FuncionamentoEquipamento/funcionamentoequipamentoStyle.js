@@ -17,7 +17,13 @@ export const useStyles = makeStyles(theme => ({
   },
   chart: {
     // height: "300px",
-    background: "green"
+    background: "white",
+    border: "1px solid rgba(0,0,0,.2)",
+
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
   },
   chartTable: {
     // height: "300px",
@@ -41,6 +47,11 @@ export const useStyles = makeStyles(theme => ({
       color: "rgba(0,0,0,1)",
       fontSize: "16px",
     },
+  },
+  select: {
+    padding: "10px",
+    border: "none",
+    outline: "none"
   },
   chartButtons: {
     height: "20px",

@@ -20,10 +20,12 @@ export default function FuncionamentoEquipamento() {
   const [dataToShow, setDataToShow] = useState({
     type: selectedChart,
     period: "2",
-    max: 22,
-    min: 12,
+    tempMax: 0,
+    currMax: 0,
+    voltMax: 0,
+    min: 33,
     lastAlert: "12",
-    worktime: "",
+    worktime: 1234676,
     situation: "",
   })
   const [loading, setLoading] = useState(true);
@@ -31,8 +33,8 @@ export default function FuncionamentoEquipamento() {
   useEffect(() => {
     // get datas of equipment
     api.get(`data/equipament/${id}`).then(response => {
-      const equipment = response.data.data;
-      setEquipmentData(equipment)
+      const data = response.data.data;
+      setEquipmentData(data)
     })
 
     // get equipment
@@ -44,8 +46,28 @@ export default function FuncionamentoEquipamento() {
   }, [id]);
 
   useEffect(() => {
+    var tempMax = 0;
+    var tempMin = 0;
+    var currMax = 0;
+    var currMin = 0;
+    var voltMax = 0;
+    var voltMin = 0;
+    if (equipmentData[0]) {
+      tempMax = Math.max(...equipmentData.map(data => data.temperature))
+      tempMin = Math.min(...equipmentData.map(data => data.temperature))
+      currMax = Math.max(...equipmentData.map(data => data.current))
+      currMin = Math.min(...equipmentData.map(data => data.current))
+      voltMax = Math.max(...equipmentData.map(data => data.voltage))
+      voltMin = Math.min(...equipmentData.map(data => data.voltage))
+    }
     const data = {
       type: "temperature",
+      tempMax,
+      tempMin,
+      currMax,
+      currMin,
+      voltMax,
+      voltMin,
       situation: equipment.situation,
       worktime: equipment.work_time
     }

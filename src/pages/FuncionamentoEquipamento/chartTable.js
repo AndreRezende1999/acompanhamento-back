@@ -1,6 +1,11 @@
 import React from 'react';
 import {
+  Box,
   CssBaseline,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem
 } from '@material-ui/core';
 import { useStyles } from './funcionamentoequipamentoStyle'
 
@@ -13,12 +18,12 @@ const elementsOfTable = {
     },
     {
       title: "Máxima temperatura",
-      value: "max",
+      value: "tempMax",
       unity: "°C"
     },
     {
       title: "Mínima temperatura",
-      value: "min",
+      value: "tempMin",
       unity: "°C"
     },
     {
@@ -35,12 +40,12 @@ const elementsOfTable = {
     },
     {
       title: "Máxima corrente",
-      value: "max",
+      value: "currMax",
       unity: "A"
     },
     {
       title: "Mínima corrente",
-      value: "min",
+      value: "currMin",
       unity: "A"
     },
     {
@@ -57,12 +62,12 @@ const elementsOfTable = {
     },
     {
       title: "Máxima tensão",
-      value: "max",
+      value: "voltMax",
       unity: "V"
     },
     {
       title: "Mínima tensão",
-      value: "min",
+      value: "voltMin",
       unity: "V"
     },
     {
@@ -102,6 +107,33 @@ export default function ChartTable({ dataToShow }) {
   return (
     <>
       <CssBaseline />
+
+      <h2 className={classes.moduleTitle}>Período</h2>
+      <Box>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+        // value={age}
+        // onChange={handleChange}
+        >
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+        // value={age}
+        // onChange={handleChange}
+        >
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </Box>
+
+      <hr className={classes.divider} />
 
       {elementsOfTable[dataToShow.type]
         .concat(elementsFixedOfTable)
