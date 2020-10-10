@@ -4,7 +4,8 @@ import {
   CssBaseline,
   Select,
   MenuItem,
-  TextField
+  TextField,
+  Grid
 } from '@material-ui/core';
 import { useStyles } from './funcionamentoequipamentoStyle'
 import { ptBR } from 'date-fns/locale';
@@ -82,7 +83,7 @@ export default function ChartTable({ dataToShow, periodChart, setPeriodChart }) 
   const classes = useStyles();
 
   const Module = ({ title, value, unity, last }) => (
-    <>
+    <Grid xs={6} md={12} item>
       <h2 className={classes.moduleTitle}>{title}</h2>
       <p className={classes.moduleValue}>{
         value === "worktime" || value === "voltLastAlert" || value === "currLastAlert" || value === "tempLastAlert" ?
@@ -91,11 +92,11 @@ export default function ChartTable({ dataToShow, periodChart, setPeriodChart }) 
       } {unity}</p>
 
       {!last && <hr className={classes.divider} />}
-    </>
+    </Grid>
   )
 
   const PeriodModele = ({ number, type }) => (
-    <>
+    <Grid xs={6} md={12} item>
       <h2 className={classes.moduleTitle}>Período</h2>
       <Box display="flex" justifyContent="space-around" alignItems="center">
         {/* <TextField defaultValue={12} className={classes.inputPeriod}
@@ -118,7 +119,7 @@ export default function ChartTable({ dataToShow, periodChart, setPeriodChart }) 
       </Box>
 
       <hr className={classes.divider} />
-    </>
+    </Grid>
   )
 
   const handleChangePeriod = (e) => {
@@ -127,7 +128,7 @@ export default function ChartTable({ dataToShow, periodChart, setPeriodChart }) 
   }
 
   return (
-    <>
+    <Grid container>
       <CssBaseline />
 
       <PeriodModele number={periodChart.value} type={periodChart.type} />
@@ -137,6 +138,6 @@ export default function ChartTable({ dataToShow, periodChart, setPeriodChart }) 
         .map((props) => (
           <Module key={props.title} {...props} />
         ))}
-    </>
+    </Grid>
   )
 }

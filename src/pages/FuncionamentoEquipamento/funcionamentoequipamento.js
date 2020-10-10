@@ -111,7 +111,11 @@ export default function FuncionamentoEquipamento() {
       <Grid container>
         <Grid container className={classes.chartContainer}>
           <Grid item md={9} xs={12} className={classes.chart}>
-            <Chart dataToShow={dataToShow} equipmentData={equipmentData} selectedChart={selectedChart} />
+            <Chart
+              dataToShow={dataToShow}
+              equipmentData={equipmentData}
+              selectedChart={selectedChart}
+              periodChart={periodChart} />
           </Grid>
           <Grid item md={3} xs={12} className={classes.chartTable}>
             <ChartTable

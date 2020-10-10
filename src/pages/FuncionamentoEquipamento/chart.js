@@ -8,10 +8,10 @@ import {
 } from '@material-ui/core';
 import { Line } from 'react-chartjs-2';
 import { useStyles } from './funcionamentoequipamentoStyle';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
-export default function ({ dataToShow, equipmentData, selectedChart }) {
+export default function ({ dataToShow, equipmentData, selectedChart, periodChart }) {
   const classes = useStyles();
 
   const [chartTitle, setChartTitle] = useState("");
@@ -33,6 +33,20 @@ export default function ({ dataToShow, equipmentData, selectedChart }) {
     setChartTitle(title);
   }, [dataToShow]);
 
+  const dateLabalFormat = () => {
+    switch (periodChart) {
+      case "mounth":
+        return "dd/MM";
+      case "day":
+        return "HH:mm";
+      case "voltage":
+        return "Tensão";
+
+      default:
+        return "dd/MM";
+    }
+  }
+
   return (
     <>
       <CssBaseline />
@@ -41,15 +55,19 @@ export default function ({ dataToShow, equipmentData, selectedChart }) {
       <p className={classes.subtitle}>
         {format(new Date(), "PPPP", { locale: ptBR })}
       </p>
-      <Line data={{
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [{
-          label: 'Atual',
-          borderColor: "red",
-          data: equipmentData.map(data => data[selectedChart]),
-          fill: false,
-        }]
-      }} />
+      <Line
+        data={{
+          labels: equipmentData.map(data =>
+            format(parseISO(data.createdAt), dateLabalFormat())
+          ),
+          datasets: [{
+            label: 'Atual',
+            borderColor: "red",
+            data: equipmentData.map(data => data[selectedChart]),
+            fill: false,
+          }]
+        }}
+        options={{}} />
     </>
   )
 }
